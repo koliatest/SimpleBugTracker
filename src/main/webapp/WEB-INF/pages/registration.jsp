@@ -45,8 +45,8 @@
   </div>
   </div>
 
-<script src="<c:url value="/resources/js/registration.js" />" />
-<link href="<c:url value="/resources/css/registration.css" />" rel="stylesheet" />
+<script src="<c:url value="/resources/js/registration.js" />" ></script>>
+<link href="<c:url value="/resources/css/registration.css" />" rel="stylesheet"  property=""/>
 
 </body>
 </html>

@@ -15,7 +15,7 @@ springframework.org/schema/mvc ">
         <property name="suffix" value=".jsp"/>
     </bean>
 
-    <mvc:resources mapping="/resources/**" location="/resources/"/>
+    <!--<mvc:resources mapping="/resources/**" location="/resources/"/>-->
     <mvc:annotation-driven />
 
     <security:global-method-security jsr250-annotations="enabled" pre-post-annotations="enabled"

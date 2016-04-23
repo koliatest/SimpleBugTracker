@@ -17,10 +17,7 @@
         },
 
         submitForm : function(e) {
-            e.preventDefault();
-
             var form = $(this);
-
             if(app.validateForm(form) === false) return false;
         },
 

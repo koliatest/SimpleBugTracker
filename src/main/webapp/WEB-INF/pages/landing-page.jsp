@@ -40,7 +40,10 @@
         <sec:authorize access="hasRole('ROLE_ADMIN')">
           <li><a href="#">Admin page</a></li>
         </sec:authorize>
-        <li><a href="#">About</a></li>
+        <sec:authorize access="isAuthenticated()">
+          <li><a href="/profile">Profile</a></li>
+        </sec:authorize>
+        <li><a href="/about">About</a></li>
         <sec:authorize access="isAuthenticated()">
           <li><a href="/auth/logout">Logout</a></li>
         </sec:authorize>

@@ -33,13 +33,6 @@ public class User {
     @Column(name = "date_of_registration")
     private Date dateOfRegistration = setDateByRegistration();
 
-    /*@OneToOne(cascade=CascadeType.ALL)
-    @JoinTable(name="user_roles",
-            joinColumns = {@JoinColumn(name="user_id", referencedColumnName="id")},
-            inverseJoinColumns = {@JoinColumn(name="role_id", referencedColumnName="id")}
-    )
-    private Role role;*/
-
     @ElementCollection(fetch = FetchType.EAGER)
     @Enumerated(EnumType.STRING)
     private Set<RoleOfTheUser> rolesOfTheUser = setDefaultRoles();
@@ -120,13 +113,5 @@ public class User {
     public void setPassword(String password) {
         this.password = password;
     }
-
-    /*public Role getRole() {
-        return role;
-    }
-
-    public void setRole(Role role) {
-        this.role = role;
-    }*/
 
 }

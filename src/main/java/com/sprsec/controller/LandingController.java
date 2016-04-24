@@ -17,4 +17,14 @@ public class LandingController {
     public ModelAndView indexPage() {
         return new ModelAndView("landing-page");
     }
+
+    @RequestMapping(value="/about", method=RequestMethod.GET)
+    public ModelAndView aboutPage() {
+        return new ModelAndView("about-page");
+    }
+
+    @RequestMapping(value="/profile", method=RequestMethod.GET)
+    public ModelAndView profilePage() {
+        return new ModelAndView("profile-page");
+    }
 }

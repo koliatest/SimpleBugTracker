@@ -87,6 +87,12 @@
             <version>3.2.7.RELEASE</version>
         </dependency>
 
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-taglibs</artifactId>
+            <version>3.2.7.RELEASE</version>
+        </dependency>
+
         <!-- DB related dependencies -->
         <dependency>
             <groupId>javax.persistence</groupId>

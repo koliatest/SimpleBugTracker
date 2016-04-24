@@ -1,7 +1,11 @@
 package com.sprsec.model;
 
+import com.sprsec.model.enums.RoleOfTheUser;
+
 import javax.persistence.*;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name="users")
@@ -29,12 +33,24 @@ public class User {
     @Column(name = "date_of_registration")
     private Date dateOfRegistration = setDateByRegistration();
 
-    @OneToOne(cascade=CascadeType.ALL)
+    /*@OneToOne(cascade=CascadeType.ALL)
     @JoinTable(name="user_roles",
             joinColumns = {@JoinColumn(name="user_id", referencedColumnName="id")},
             inverseJoinColumns = {@JoinColumn(name="role_id", referencedColumnName="id")}
     )
-    private Role role;
+    private Role role;*/
+
+    @ElementCollection(fetch = FetchType.EAGER)
+    @Enumerated(EnumType.STRING)
+    private Set<RoleOfTheUser> rolesOfTheUser = setDefaultRoles();
+
+    public User() {    }
+
+    private static Set<RoleOfTheUser> setDefaultRoles() {
+        Set<RoleOfTheUser> defaultRoles = new HashSet<RoleOfTheUser>();
+        defaultRoles.add(RoleOfTheUser.ROLE_USER);
+        return defaultRoles;
+    }
 
     private static Date setDateByRegistration(){
         return new Date();
@@ -80,7 +96,16 @@ public class User {
         this.id = id;
     }
 
+    public Set<RoleOfTheUser> getRolesOfTheUser() {
+        return rolesOfTheUser;
+    }
+
+    public void setRolesOfTheUser(Set<RoleOfTheUser> rolesOfTheUser) {
+        this.rolesOfTheUser = rolesOfTheUser;
+    }
+
     public String getLogin() {
+
         return login;
     }
 
@@ -96,12 +121,12 @@ public class User {
         this.password = password;
     }
 
-    public Role getRole() {
+    /*public Role getRole() {
         return role;
     }
 
     public void setRole(Role role) {
         this.role = role;
-    }
+    }*/
 
 }

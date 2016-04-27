@@ -2,6 +2,7 @@ package com.sprsec.dao;
 
 import com.sprsec.model.Project;
 import org.hibernate.Query;
+import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -18,13 +19,18 @@ public class ProjectDaoImpl implements ProjectDao{
     @Override
     @Transactional
     public List<Project> listOfProjects() {
-        return (List)sessionFactory.getCurrentSession().createQuery("from Project").list();
+        return (List)openSession().createQuery("from Project").list();
+    }
+
+    private Session openSession()
+    {
+        return sessionFactory.getCurrentSession();
     }
 
     @Override
     @Transactional
-    public List<Project> listOfProjectsByUser(Long id){
-        Query query = sessionFactory.getCurrentSession().createQuery
+    public List<Project> listOfProjectsByUser(Integer id){
+        Query query = openSession().createQuery
                 ("select p from Project p where p.leadOfTheProject = :id");
         query.setString("id", id.toString());
         return query.list();
@@ -32,25 +38,25 @@ public class ProjectDaoImpl implements ProjectDao{
 
     @Override
     @Transactional
-    public Project getProject(Long id) {
-        return (Project) sessionFactory.getCurrentSession().get(Project.class, id);
+    public Project getProject(Integer id) {
+        return (Project) openSession().get(Project.class, id);
     }
 
     @Override
     @Transactional
     public void createProject(Project project) {
-        sessionFactory.getCurrentSession().save(project);
+        openSession().save(project);
     }
 
     @Override
     @Transactional
     public void updateProject(Project project) {
-        sessionFactory.getCurrentSession().update(project);
+        openSession().update(project);
     }
 
     @Override
     @Transactional
-    public void deleteProject(Long id) {
-        sessionFactory.getCurrentSession().delete(getProject(id));
+    public void deleteProject(Integer id) {
+        openSession().delete(getProject(id));
     }
 }

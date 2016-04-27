@@ -48,11 +48,26 @@
 <div class = "container">
   <div class="col-sm-6">
     <h1 class="header">Create project</h1>
-    <sf:form cssClass="form-horizontal" method = "post" action="/project/create" modelAttribute = "project">
+    <sf:form cssClass="form-horizontal" method = "post" action="/project/create" modelAttribute = "dto">
       <div class="form-group">
         <nobr><label for="nameOfTheProject">Name of the project</label></nobr>
           <input type="text" class="form-control" id="nameOfTheProject" name="nameOfTheProject" placeholder="Name of the project">
       </div>
+
+      <div class="form-group">
+        <nobr><label>Lead of the project</label></nobr>
+        <c:if test="${!empty userList}">
+          <sf:select path="leadOfTheProject">
+            <c:forEach items="${userList}" var="user">
+              <sf:option value="${user.id}">${user.firstName} ${user.lastName}</sf:option>
+            </c:forEach>
+          </sf:select>
+        </c:if>
+        <c:if test="${empty userList}">
+          There are no users
+        </c:if>
+      </div>
+
       <div class="form-group">
         <nobr><label for="descriptionOfTheProject">Description of the project</label></nobr>
           <textarea style="height: 170px;" class="form-control" id="descriptionOfTheProject" name="descriptionOfTheProject" placeholder="Description of the project"></textarea>

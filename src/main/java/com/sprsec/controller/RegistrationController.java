@@ -31,7 +31,7 @@ public class RegistrationController
     @RequestMapping(value = "/registration", method = RequestMethod.POST)
     public ModelAndView registration(@ModelAttribute("user") User user)
     {
-        this.userService.addUser(user);
+        this.userService.createUser(user);
         return new ModelAndView("redirect:/index.html");
     }
 }

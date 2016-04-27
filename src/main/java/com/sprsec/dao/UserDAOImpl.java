@@ -7,7 +7,7 @@ import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import java.util.ArrayList;
+import javax.transaction.Transactional;
 import java.util.List;
 
 @Repository
@@ -21,20 +21,41 @@ public class UserDAOImpl implements UserDAO {
         return sessionFactory.getCurrentSession();
     }
 
-    public User getUser(String login)
-    {
-        List<User> userList = new ArrayList<User>();
-        Query query = openSession().createQuery("from User u where u.login = :login");
-        query.setParameter("login", login);
-        userList = query.list();
-        if (userList.size() > 0)
-            return userList.get(0);
-        else
-            return null;
+    @Override
+    @Transactional
+    public List<User> listOfUsers() {
+        return (List)openSession().createQuery("from User").list();
     }
 
-    public void addUser(User user)
-    {
+    @Override
+    @Transactional
+    public User getUser(Integer id) {
+        return (User) openSession().get(User.class, id);
+    }
+
+    @Override
+    @Transactional
+    public User getUser(String userName) {
+        Query query = openSession().createQuery("select u from User u where u.login = :login");
+        query.setString("login", userName);
+        return (User)query.list().get(0);
+    }
+
+    @Override
+    @Transactional
+    public void createUser(User user) {
         openSession().save(user);
+    }
+
+    @Override
+    @Transactional
+    public void updateUser(User user) {
+        openSession().update(user);
+    }
+
+    @Override
+    @Transactional
+    public void removeUser(Integer id) {
+        openSession().delete(getUser(id));
     }
 }

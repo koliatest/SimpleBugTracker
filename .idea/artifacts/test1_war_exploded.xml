@@ -48,7 +48,7 @@
         </element>
       </element>
       <element id="directory" name="META-INF">
-        <element id="file-copy" path="C:\Users\KoliaBoss\IdeaProjects\test1\target/MANIFEST.MF" />
+        <element id="file-copy" path="C:\Users\KoliaBoss\IdeaProjects\springSecHibTest\target/MANIFEST.MF" />
       </element>
       <element id="javaee-facet-resources" facet="test1/web/Web" />
     </root>

@@ -4,10 +4,12 @@ import com.sprsec.dao.ProjectDao;
 import com.sprsec.model.Project;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
 @Service
+@Transactional
 public class ProjectServiceImpl implements ProjectService {
 
     @Autowired
@@ -18,12 +20,13 @@ public class ProjectServiceImpl implements ProjectService {
         return projectDao.listOfProjects();
     }
 
-    public List<Project> listOfProjectsByUser(Long id){
+    @Override
+    public List<Project> listOfProjectsByUser(Integer id){
         return projectDao.listOfProjectsByUser(id);
     }
 
     @Override
-    public Project getProject(Long id) {
+    public Project getProject(Integer id) {
         return projectDao.getProject(id);
     }
 
@@ -38,7 +41,7 @@ public class ProjectServiceImpl implements ProjectService {
     }
 
     @Override
-    public void deleteProject(Long id) {
+    public void deleteProject(Integer id) {
         projectDao.deleteProject(id);
     }
 }

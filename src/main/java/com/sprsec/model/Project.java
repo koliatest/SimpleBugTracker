@@ -22,9 +22,9 @@ public class Project
     @JoinColumn(name = "leadOfTheProject_id")
     private User leadOfTheProject;
 
-    @ManyToMany(fetch = FetchType.EAGER)
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinTable(name="project_user",
-            joinColumns = @JoinColumn(name="projt_id", referencedColumnName="id"),
+            joinColumns = @JoinColumn(name="proj_id", referencedColumnName="id"),
             inverseJoinColumns = @JoinColumn(name="usr_id", referencedColumnName="id")
     )
     private Set<User> usersInTheCurrentProject;

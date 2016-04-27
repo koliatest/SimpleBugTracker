@@ -1,10 +1,17 @@
 package com.sprsec.service;
 
 import com.sprsec.model.User;
+import org.springframework.stereotype.Service;
 
+import java.util.List;
+
+@Service
 public interface UserService {
 
-    public User getUser(String login);
-
-    public void addUser(User user);
+    public List<User> listOfUsers();
+    public User getUser(Integer id);
+    public User getUser(String userName);
+    public void createUser(User user);
+    public void updateUser(User user);
+    public void removeUser(Integer id);
 }

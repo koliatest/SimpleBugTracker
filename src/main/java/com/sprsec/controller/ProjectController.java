@@ -50,6 +50,6 @@ public class ProjectController
             }
         }
         projectService.createProject(project);
-        return new ModelAndView("project-create-page");
+        return new ModelAndView("redirect:/profile");
     }
 }

@@ -30,10 +30,21 @@ public class Project
     )
     private Set<User> usersInTheCurrentProject = new HashSet<User>(0);
 
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "projectOfTheIssue")
+    private Set<Issue> issuesSet = new HashSet<Issue>(0);
+
     public Project() {}
 
     public Integer getId() {
         return id;
+    }
+
+    public Set<Issue> getIssuesSet() {
+        return issuesSet;
+    }
+
+    public void setIssuesSet(Set<Issue> issuesSet) {
+        this.issuesSet = issuesSet;
     }
 
     public void setId(Integer id) {

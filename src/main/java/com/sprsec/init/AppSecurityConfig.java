@@ -54,7 +54,7 @@ public class AppSecurityConfig extends WebSecurityConfigurerAdapter {
         http
                 .formLogin()
                 .loginPage("/login")
-                .defaultSuccessUrl("/")
+                .defaultSuccessUrl("/profile")
                 .failureUrl("/login?error")
                 .loginProcessingUrl("/login")
                 .usernameParameter("login")

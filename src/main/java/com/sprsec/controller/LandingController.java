@@ -1,12 +1,22 @@
 package com.sprsec.controller;
 
+import com.sprsec.model.User;
+import com.sprsec.service.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.util.Map;
+
 @Controller
 public class LandingController {
+
+    @Autowired
+    UserService userService;
 
     @RequestMapping(value="/", method=RequestMethod.GET)
     public ModelAndView homePage() {
@@ -24,7 +34,11 @@ public class LandingController {
     }
 
     @RequestMapping(value="/profile", method=RequestMethod.GET)
-    public ModelAndView profilePage() {
+    public ModelAndView profilePage(Map<String, Object> map) {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        User currentUser = userService.getUser(auth.getName());
+        map.put("listOfProjects", currentUser.getUserProjects());
+        map.put("selectedProjectName", new String("All Projects"));
         return new ModelAndView("profile-page");
     }
 }

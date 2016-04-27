@@ -45,6 +45,12 @@ public class User {
 
     private Set<Project> userProjects = new HashSet<Project>(0);
 
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "fixerOfTheIssue")
+    private Set<Issue> issuesToFix = new HashSet<Issue>(0);
+
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "testerOfTheIssue")
+    private Set<Issue> issuesToTest = new HashSet<Issue>(0);
+
     public User() {    }
 
     public Set<Project> getUserProjects() {
@@ -53,6 +59,22 @@ public class User {
 
     public void setUserProjects(Set<Project> userProjects) {
         this.userProjects = userProjects;
+    }
+
+    public Set<Issue> getIssuesToFix() {
+        return issuesToFix;
+    }
+
+    public void setIssuesToFix(Set<Issue> issuesToFix) {
+        this.issuesToFix = issuesToFix;
+    }
+
+    public Set<Issue> getIssuesToTest() {
+        return issuesToTest;
+    }
+
+    public void setIssuesToTest(Set<Issue> issuesToTest) {
+        this.issuesToTest = issuesToTest;
     }
 
     private static Set<RoleOfTheUser> setDefaultRoles() {
@@ -130,4 +152,8 @@ public class User {
         this.password = password;
     }
 
+    @Override
+    public String toString() {
+        return getFirstName() + " " + getLastName();
+    }
 }

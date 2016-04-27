@@ -32,6 +32,6 @@ public class RegistrationController
     public ModelAndView registration(@ModelAttribute("user") User user)
     {
         this.userService.createUser(user);
-        return new ModelAndView("redirect:/index.html");
+        return new ModelAndView("redirect:/login");
     }
 }

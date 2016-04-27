@@ -39,6 +39,16 @@ public class ProjectController
         project.setNameOfTheProject(dto.getNameOfTheProject());
         project.setDescriptionOfTheProject(dto.getDescriptionOfTheProject());
         project.setLeadOfTheProject(userService.getUser(dto.getLeadOfTheProject()));
+        String dtoLogins = dto.getUsersInTheCurrentProject();
+        if(dtoLogins.length() > 0)
+        {
+            dtoLogins = dtoLogins.trim();
+            String[] logins = dtoLogins.split(";");
+            for (String login : logins)
+            {
+                project.getUsersInTheCurrentProject().add(userService.getUser(login.trim()));
+            }
+        }
         projectService.createProject(project);
         return new ModelAndView("project-create-page");
     }

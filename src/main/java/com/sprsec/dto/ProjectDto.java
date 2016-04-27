@@ -18,7 +18,7 @@ public class ProjectDto {
 
     private int[] issues;
 
-    private int[] usersInTheCurrentProject;
+    private String usersInTheCurrentProject;
 
     public int getId() {
         return id;
@@ -60,11 +60,11 @@ public class ProjectDto {
         this.issues = issues;
     }
 
-    public int[] getUsersInTheCurrentProject() {
+    public String getUsersInTheCurrentProject() {
         return usersInTheCurrentProject;
     }
 
-    public void setUsersInTheCurrentProject(int[] usersInTheCurrentProject) {
+    public void setUsersInTheCurrentProject(String usersInTheCurrentProject) {
         this.usersInTheCurrentProject = usersInTheCurrentProject;
     }
 

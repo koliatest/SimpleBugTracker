@@ -1,6 +1,7 @@
 package com.sprsec.model;
 
 import javax.persistence.*;
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -24,10 +25,10 @@ public class Project
 
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinTable(name="project_user",
-            joinColumns = @JoinColumn(name="proj_id", referencedColumnName="id"),
-            inverseJoinColumns = @JoinColumn(name="usr_id", referencedColumnName="id")
+            joinColumns = @JoinColumn(name="proj_id"),
+            inverseJoinColumns = @JoinColumn(name="usr_id")
     )
-    private Set<User> usersInTheCurrentProject;
+    private Set<User> usersInTheCurrentProject = new HashSet<User>(0);
 
     public Project() {}
 

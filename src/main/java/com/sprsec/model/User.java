@@ -37,7 +37,23 @@ public class User {
     @Enumerated(EnumType.STRING)
     private Set<RoleOfTheUser> rolesOfTheUser = setDefaultRoles();
 
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinTable(name="project_user",
+            joinColumns = @JoinColumn(name="usr_id"),
+            inverseJoinColumns = @JoinColumn(name="proj_id")
+    )
+
+    private Set<Project> userProjects = new HashSet<Project>(0);
+
     public User() {    }
+
+    public Set<Project> getUserProjects() {
+        return userProjects;
+    }
+
+    public void setUserProjects(Set<Project> userProjects) {
+        this.userProjects = userProjects;
+    }
 
     private static Set<RoleOfTheUser> setDefaultRoles() {
         Set<RoleOfTheUser> defaultRoles = new HashSet<RoleOfTheUser>();

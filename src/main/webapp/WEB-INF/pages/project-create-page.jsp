@@ -17,6 +17,15 @@
   <!-- Latest compiled and minified JavaScript -->
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js" integrity="sha512-K1qjQ+NcF2TYO/eI3M6v8EiNYZfA95pQumfvcVrTHtwQVDG+aHRqLi/ETn2uB+1JqwYqVG3LIvdm9lj6imS/pQ==" crossorigin="anonymous"></script>
 
+  <!-- Latest compiled and minified CSS -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.10.0/css/bootstrap-select.min.css">
+
+  <!-- Latest compiled and minified JavaScript -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.10.0/js/bootstrap-select.min.js"></script>
+
+  <!-- (Optional) Latest compiled and minified JavaScript translation files -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.10.0/js/i18n/defaults-*.min.js"></script>
+
 </head>
 <body>
 <nav class="navbar navbar-inverse navbar-fixed-top">
@@ -54,10 +63,11 @@
           <input type="text" class="form-control" id="nameOfTheProject" name="nameOfTheProject" placeholder="Name of the project">
       </div>
 
+
       <div class="form-group">
         <nobr><label>Lead of the project</label></nobr>
         <c:if test="${!empty userList}">
-          <sf:select path="leadOfTheProject">
+          <sf:select path="leadOfTheProject" cssClass="selectpicker" data-live-search="true">
             <c:forEach items="${userList}" var="user">
               <sf:option value="${user.id}">${user.firstName} ${user.lastName}</sf:option>
             </c:forEach>
@@ -79,7 +89,6 @@
 </div>
 </div>
 </div>
-<script src="<c:url value="/resources/js/registration.js" />" > </script>
 <link href="<c:url value="/resources/css/registration.css" />" rel="stylesheet"  property=""/>
 
 </body>

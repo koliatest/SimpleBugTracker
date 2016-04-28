@@ -30,19 +30,24 @@ public class Issue {
 
     @Column
     @Enumerated(EnumType.STRING)
-    private StatusOfTheIssue status;
+    private StatusOfTheIssue status = setDefaultStatusOfTheIssue();
 
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "project_fk")
     private Project projectOfTheIssue;
 
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_fixer_fk")
     private User fixerOfTheIssue;
 
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_tester_fk")
     private User testerOfTheIssue;
+
+    private static StatusOfTheIssue setDefaultStatusOfTheIssue()
+    {
+        return StatusOfTheIssue.OPENED;
+    }
 
     public Integer getId() {
         return id;

@@ -89,6 +89,8 @@
 </c:if>
 
 <link href="<c:url value="/resources/css/registration.css" />" rel="stylesheet"  property=""/>
+<link href="<c:url value="/resources/css/error.css" />" rel="stylesheet"  property=""/>
+
 
 </body>
 </html>

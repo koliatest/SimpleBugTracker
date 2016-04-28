@@ -1,3 +1,6 @@
+<%@ page import="com.sprsec.model.Project" %>
+<%@ page import="org.springframework.beans.factory.annotation.Autowired" %>
+<%@ page import="com.sprsec.service.ProjectService" %>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="sf" uri="http://www.springframework.org/tags/form" %>
@@ -56,39 +59,71 @@
 <div class="formAdd">
     <div class = "container">
         <div class="col-sm-6">
-            <h1 class="header">Create project</h1>
+            <h1 class="header">Create a new issue</h1>
             <sf:form cssClass="form-horizontal" method = "post" action="/issue/create" modelAttribute = "dto">
+
             <div class="form-group">
-                <nobr><label for="nameOfTheProject">Name of the project</label></nobr>
-                <input type="text" class="form-control" id="nameOfTheProject" name="nameOfTheProject" placeholder="Name of the project">
+                <p><label>Project</label></p>
+                <c:if test="${!empty userProjects}">
+                    <sf:select path="projectId" cssClass="selectpicker">
+                        <c:forEach items="${userProjects}" var="project">
+                            <sf:option value="${project.id}">${project.nameOfTheProject}</sf:option>
+                        </c:forEach>
+                    </sf:select>
+                </c:if>
+                <c:if test="${empty userProjects}">
+                    There are no projects
+                </c:if>
             </div>
 
+            <div class="form-group">
+                <nobr><label for="title">Title for issue</label></nobr>
+                <input type="text" class="form-control" id="title" name="title" placeholder="Title for issue">
+            </div>
 
             <div class="form-group">
-                <nobr><label>Lead of the project</label></nobr>
-                <c:if test="${!empty userList}">
-                    <sf:select path="leadOfTheProject" cssClass="selectpicker" data-live-search="true">
-                        <c:forEach items="${userList}" var="user">
+                <nobr><label>Description</label></nobr>
+                <textarea style="height: 150px;" class="form-control" id="description" name="description" placeholder="Description"></textarea>
+            </div>
+
+            <div class="form-group">
+                <p><label>Priority</label></p>
+                <c:if test="${!empty listOfPriority}">
+                    <sf:select path="priority" cssClass="selectpicker" items="${listOfPriority}">
+                    </sf:select>
+                </c:if>
+            </div>
+
+            <div class="form-group">
+                <p><label>Who will fix the issue?</label></p>
+                <c:if test="${!empty listOfUsers}">
+                    <sf:select path="fixerId" cssClass="selectpicker">
+                        <c:forEach items="${listOfUsers}" var="user">
                             <sf:option value="${user.id}">${user.firstName} ${user.lastName}</sf:option>
                         </c:forEach>
                     </sf:select>
                 </c:if>
-                <c:if test="${empty userList}">
+                <c:if test="${empty listOfUsers}">
                     There are no users
                 </c:if>
             </div>
 
             <div class="form-group">
-                <nobr><label>Users in the current project</label></nobr>
-                <textarea style="height: 150px;" class="form-control" id="usersInTheCurrentProject" name="usersInTheCurrentProject" placeholder="login1; login2; login3; login4;"></textarea>
+                <p><label>Who will verify the issue os fixed?</label></p>
+                <c:if test="${!empty listOfUsers}">
+                    <sf:select path="testerId" cssClass="selectpicker">
+                        <c:forEach items="${listOfUsers}" var="user">
+                            <sf:option value="${user.id}">${user.firstName} ${user.lastName}</sf:option>
+                        </c:forEach>
+                    </sf:select>
+                </c:if>
+                <c:if test="${empty listOfUsers}">
+                    There are no users
+                </c:if>
             </div>
 
             <div class="form-group">
-                <nobr><label for="descriptionOfTheProject">Description of the project</label></nobr>
-                <textarea style="height: 170px;" class="form-control" id="descriptionOfTheProject" name="descriptionOfTheProject" placeholder="Description of the project"></textarea>
-            </div>
-            <div class="form-group">
-                <button type="submit" class="btn btn-success">Submit</button>
+                <button type="submit" class="btn btn-success btn-lg">Submit</button>
                 </sf:form>
             </div>
         </div>

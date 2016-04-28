@@ -1,9 +1,4 @@
 .tooltip-inner{white-space: pre;}
 .header{margin-bottom: 40px;}
-.formAdd {margin-top: 20px;}
-.dropdown-menu {
-    left: 50%;
-    right: auto;
-    text-align: center;
-    transform: translate(-50%, 0);
-}
+.formAdd {margin-top: 40px;}
+

@@ -6,9 +6,6 @@ import com.sprsec.model.enums.RoleOfTheUser;
 import java.util.HashSet;
 import java.util.Set;
 
-/**
- * Created by Oleg on 18.04.2015.
- */
 public class UserFactory {
 
     private static volatile UserFactory instance;

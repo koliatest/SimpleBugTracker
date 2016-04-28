@@ -45,10 +45,10 @@ public class User {
 
     private Set<Project> userProjects = new HashSet<Project>(0);
 
-    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "fixerOfTheIssue")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "fixerOfTheIssue")
     private Set<Issue> issuesToFix = new HashSet<Issue>(0);
 
-    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "testerOfTheIssue")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "testerOfTheIssue")
     private Set<Issue> issuesToTest = new HashSet<Issue>(0);
 
     public User() {    }

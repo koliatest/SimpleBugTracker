@@ -60,7 +60,7 @@
     <div class = "container">
         <div class="col-sm-6">
             <h1 class="header">Create a new issue</h1>
-            <sf:form cssClass="form-horizontal" method = "post" action="/issue/create" modelAttribute = "dto">
+            <sf:form id="myForm" cssClass="form-horizontal" method = "post" action="/issue/create" modelAttribute = "dto">
 
             <div class="form-group">
                 <p><label>Project</label></p>
@@ -129,6 +129,12 @@
         </div>
     </div>
 </div>
+
+<script type="text/javascript">
+    $('#myForm').one('submit', function() {
+        $(this).find('input[type="submit"]').attr('disabled','disabled');
+    });
+</script>
 <link href="<c:url value="/resources/css/registration.css" />" rel="stylesheet"  property=""/>
 
 </body>

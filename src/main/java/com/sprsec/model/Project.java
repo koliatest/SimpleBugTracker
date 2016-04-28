@@ -30,7 +30,7 @@ public class Project
     )
     private Set<User> usersInTheCurrentProject = new HashSet<User>(0);
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "projectOfTheIssue")
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "projectOfTheIssue")
     private Set<Issue> issuesSet = new HashSet<Issue>(0);
 
     public Project() {}

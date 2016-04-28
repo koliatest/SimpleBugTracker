@@ -1,7 +1,9 @@
 package com.sprsec.controller;
 
+import com.sprsec.controller.Helper.EmailSender;
 import com.sprsec.dto.IssueDto;
 import com.sprsec.model.Issue;
+import com.sprsec.model.Project;
 import com.sprsec.model.User;
 import com.sprsec.model.enums.PriorityOfTheIssue;
 import com.sprsec.service.ProjectService;
@@ -47,14 +49,32 @@ public class CreateIssueController
     @RequestMapping(value = "/issue/create", method = RequestMethod.POST)
     public ModelAndView createIssuePost(@ModelAttribute(value = "dto") IssueDto dto)
     {
+        User fixer, tester;
+        Project project = projectService.getProject(dto.getProjectId());
+        fixer = userService.getUser(dto.getFixerId());
+        tester = userService.getUser(dto.getTesterId());
+
+        EmailSender emailSender = new EmailSender();
+
         Issue issue = new Issue();
         issue.setTitleOfIssue(dto.getTitle());
         issue.setDescription(dto.getDescription());
         issue.setPriority(PriorityOfTheIssue.valueOf(dto.getPriority()));
-        issue.setProjectOfTheIssue(projectService.getProject(dto.getProjectId()));
-        issue.setFixerOfTheIssue(userService.getUser(dto.getFixerId()));
-        issue.setTesterOfTheIssue(userService.getUser(dto.getTesterId()));
+        issue.setProjectOfTheIssue(project);
+        issue.setFixerOfTheIssue(fixer);
+        issue.setTesterOfTheIssue(tester);
+
+        project.getIssuesSet().add(issue);
+        fixer.getIssuesToFix().add(issue);
+        tester.getIssuesToTest().add(issue);
+
+        /*emailSender.send("Issue Tracker", "You have been assigned to issue <" + issue.getTitleOfIssue() + "> as fixer",
+                fixer.getEmail());
+        emailSender.send("Issue Tracker", "You have been assigned to issue <" + issue.getTitleOfIssue() + "> as tester",
+                tester.getEmail());*/
+
         issueService.createIssue(issue);
+
         return new ModelAndView("redirect:/profile");
     }
 }

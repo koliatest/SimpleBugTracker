@@ -32,15 +32,15 @@ public class Issue {
     @Enumerated(EnumType.STRING)
     private StatusOfTheIssue status = setDefaultStatusOfTheIssue();
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "project_fk")
     private Project projectOfTheIssue;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "user_fixer_fk")
     private User fixerOfTheIssue;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "user_tester_fk")
     private User testerOfTheIssue;
 

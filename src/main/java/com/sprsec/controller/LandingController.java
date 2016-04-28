@@ -1,5 +1,6 @@
 package com.sprsec.controller;
 
+import com.sprsec.model.Issue;
 import com.sprsec.model.User;
 import com.sprsec.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,7 +11,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
 
 @Controller
 public class LandingController {
@@ -37,6 +40,9 @@ public class LandingController {
     public ModelAndView profilePage(Map<String, Object> map) {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         User currentUser = userService.getUser(auth.getName());
+        Set<Issue> listOfIssues = new HashSet<>(currentUser.getIssuesToFix());
+        listOfIssues.addAll(currentUser.getIssuesToTest());
+        map.put("listOfIssues", listOfIssues);
         map.put("listOfProjects", currentUser.getUserProjects());
         map.put("selectedProjectName", new String("All Projects"));
         return new ModelAndView("profile-page");

@@ -63,23 +63,25 @@
   </ul>
 </div>
 
-<c:if test = "${!empty listOfProjects}">
+<c:if test = "${!empty listOfIssues}">
   <div class="container">
   <div class="formAdd">
-  <table id="example" class="table" cellspacing="0" width="100%">
+  <table class="table table-striped">
     <thead>
     <tr>
-      <th>#</th>
       <th>Title</th>
       <th>Fixer</th>
       <th>Tester</th>
+      <th>#</th>
     </tr>
     </thead>
     <tbody>
-    <c:forEach items = "${listOfProjects}" var = "project">
+    <c:forEach items = "${listOfIssues}" var = "issue">
       <tr>
-        <td><a href="#" class = "btn btn-success btn-lg">Open</a></td>
-        <td><td>
+        <td>${issue.titleOfIssue}</td>
+        <td>${issue.fixerOfTheIssue.firstName} ${issue.fixerOfTheIssue.firstName}</td>
+        <td>${issue.testerOfTheIssue.firstName} ${issue.testerOfTheIssue.firstName}</td>
+        <td><a href="#" class="btn btn-success">Open</a></td>
       </tr>
     </c:forEach>
     </tbody>
@@ -87,6 +89,10 @@
   </div>
   </div>
 </c:if>
+<c:if test="${empty listOfIssues}">
+  <h1 align="center">There are no issues</h1>
+</c:if>
+
 
 <link href="<c:url value="/resources/css/registration.css" />" rel="stylesheet"  property=""/>
 <link href="<c:url value="/resources/css/error.css" />" rel="stylesheet"  property=""/>

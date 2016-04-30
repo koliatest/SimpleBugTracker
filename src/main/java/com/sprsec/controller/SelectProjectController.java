@@ -39,14 +39,6 @@ public class SelectProjectController
         Project selectedProject = projectService.getProject(id);
 
         List<Issue> listOfIssues = issueService.listOfIssuesOfProject(selectedProject.getId());
-        /*for (Issue issue : listOfIssues)
-        {
-            if(issue.getFixerOfTheIssue().getId() != currentUser.getId()
-                    && issue.getTesterOfTheIssue().getId() != currentUser.getId())
-            {
-                listOfIssues.remove(issue);
-            }
-        }*/
         listOfIssues.removeIf(issue -> issue.getFixerOfTheIssue().getId() != currentUser.getId()
                 && issue.getTesterOfTheIssue().getId() != currentUser.getId());
 

@@ -1,6 +1,6 @@
 package com.sprsec.controller;
 
-import com.sprsec.controller.Helper.EmailSender;
+import com.sprsec.Helper.EmailSender;
 import com.sprsec.dto.IssueDto;
 import com.sprsec.model.Issue;
 import com.sprsec.model.Project;

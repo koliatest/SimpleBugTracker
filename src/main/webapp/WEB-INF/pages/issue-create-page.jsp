@@ -132,7 +132,7 @@
 
 <script type="text/javascript">
     $('#myForm').one('submit', function() {
-        $(this).find('input[type="submit"]').attr('disabled','disabled');
+        $(this).find('button[type="submit"]').attr('disabled','disabled');
     });
 </script>
 <link href="<c:url value="/resources/css/registration.css" />" rel="stylesheet"  property=""/>

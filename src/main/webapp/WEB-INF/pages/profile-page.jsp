@@ -53,11 +53,11 @@
     <span class="caret"></span>
   </button>
   <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-    <li><a href="#">All projects</a></li>
+    <li><a href="/profile">All projects</a></li>
     <li role="separator" class="divider"></li>
     <c:if test="${! empty listOfProjects}">
       <c:forEach items = "${listOfProjects}" var = "project">
-        <li><a href="#">${project.nameOfTheProject}</a></li>
+        <li><a href="/profile/project/${project.id}">${project.nameOfTheProject}</a></li>
       </c:forEach>
     </c:if>
   </ul>

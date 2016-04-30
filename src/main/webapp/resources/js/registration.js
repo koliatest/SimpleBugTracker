@@ -17,8 +17,11 @@
         },
 
         submitForm : function(e) {
-            var form = $(this);
+            var form = $(this),
+                submitBtn = form.find('button[type="submit"]');
             if(app.validateForm(form) === false) return false;
+
+            submitBtn.attr('disabled', 'disabled');
         },
 
         validateForm : function(form) {

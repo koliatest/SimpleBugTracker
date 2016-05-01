@@ -1,6 +1,3 @@
-<%@ page import="com.sprsec.model.Project" %>
-<%@ page import="org.springframework.beans.factory.annotation.Autowired" %>
-<%@ page import="com.sprsec.service.ProjectService" %>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="sf" uri="http://www.springframework.org/tags/form" %>
@@ -65,7 +62,7 @@
             <div class="form-group">
                 <p><label>Project</label></p>
                 <c:if test="${!empty userProjects}">
-                    <sf:select path="projectId" cssClass="selectpicker">
+                    <sf:select id="selectForProject" path="projectId" cssClass="selectpicker">
                         <c:forEach items="${userProjects}" var="project">
                             <sf:option value="${project.id}">${project.nameOfTheProject}</sf:option>
                         </c:forEach>
@@ -89,7 +86,7 @@
             <div class="form-group">
                 <p><label>Priority</label></p>
                 <c:if test="${!empty listOfPriority}">
-                    <sf:select path="priority" cssClass="selectpicker" items="${listOfPriority}">
+                    <sf:select id="selectForUsers" path="priority" cssClass="selectpicker" items="${listOfPriority}">
                     </sf:select>
                 </c:if>
             </div>
@@ -97,7 +94,7 @@
             <div class="form-group">
                 <p><label>Who will fix the issue?</label></p>
                 <c:if test="${!empty listOfUsers}">
-                    <sf:select path="fixerId" cssClass="selectpicker">
+                    <sf:select id="selectForUsers" path="fixerId" cssClass="selectpicker">
                         <c:forEach items="${listOfUsers}" var="user">
                             <sf:option value="${user.id}">${user.firstName} ${user.lastName}</sf:option>
                         </c:forEach>
@@ -134,6 +131,22 @@
     $('#myForm').one('submit', function() {
         $(this).find('button[type="submit"]').attr('disabled','disabled');
     });
+
+    // get all measurement and replace elemId with it
+    /*function getData(elemId, url) {
+        $.get(url, function (data) {
+            $(elemId).replaceWith(data);
+        });
+    }
+    function selectProject(selectId, replaceId, url) {
+        $(selectId).change(function () {
+            getData(replaceId, url);
+        });
+    }
+    $(document).ready(function () {
+        // bind handlers
+        selectProject("#selectForProject", "#selectForUsers", "/issue/create/project/" + $("#selectForProject").val());
+    });*/
 </script>
 <link href="<c:url value="/resources/css/registration.css" />" rel="stylesheet"  property=""/>
 

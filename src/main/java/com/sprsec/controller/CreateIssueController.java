@@ -56,6 +56,7 @@ public class CreateIssueController
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         User currentUser = userService.getUser(auth.getName());
 
+        map.put("currentUser", currentUser);
         map.put("dto", new IssueDto());
         map.put("userProjects", currentUser.getUserProjects());
         map.put("listOfPriority", new ArrayList<>(Arrays.asList(PriorityOfTheIssue.values())));

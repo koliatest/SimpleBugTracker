@@ -22,7 +22,8 @@ public class LandingController {
     UserService userService;
 
     @RequestMapping(value="/", method=RequestMethod.GET)
-    public ModelAndView homePage() {
+    public ModelAndView homePage()
+    {
         return new ModelAndView("landing-page");
     }
 
@@ -42,6 +43,7 @@ public class LandingController {
         User currentUser = userService.getUser(auth.getName());
         Set<Issue> listOfIssues = new HashSet<>(currentUser.getIssuesToFix());
         listOfIssues.addAll(currentUser.getIssuesToTest());
+        map.put("currentUser", currentUser);
         map.put("listOfIssues", listOfIssues);
         map.put("listOfProjects", currentUser.getUserProjects());
         map.put("selectedProjectName", new String("All Projects"));

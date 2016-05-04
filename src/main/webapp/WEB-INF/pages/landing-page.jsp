@@ -33,6 +33,7 @@
       <a class="navbar-brand" href="/">Bugtracker</a>
     </div>
     <div id="navbar" class="navbar-collapse collapse">
+
       <ul class="nav navbar-nav navbar-right">
         <sec:authorize access="hasRole('ROLE_ADMIN')">
           <li><a href="#">Admin page</a></li>
@@ -45,6 +46,7 @@
           <li><a href="/auth/logout">Logout</a></li>
         </sec:authorize>
       </ul>
+
     </div><!--/.navbar-collapse -->
   </div>
 </nav>

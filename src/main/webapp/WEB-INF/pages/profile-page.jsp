@@ -27,7 +27,12 @@
       </button>
       <a class="navbar-brand" href="/">Bugtracker</a>
     </div>
+
     <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li class="active"><a href="#">${currentUser.firstName} ${currentUser.lastName}</a></li>
+      </ul>
+
       <ul class="nav navbar-nav navbar-right">
         <sec:authorize access="hasRole('ROLE_ADMIN')">
           <li><a href="#">Admin page</a></li>
@@ -72,6 +77,7 @@
       <th>Title</th>
       <th>Fixer</th>
       <th>Tester</th>
+      <th>Priority</th>
       <th>#</th>
     </tr>
     </thead>
@@ -81,6 +87,7 @@
         <td>${issue.titleOfIssue}</td>
         <td>${issue.fixerOfTheIssue.firstName} ${issue.fixerOfTheIssue.firstName}</td>
         <td>${issue.testerOfTheIssue.firstName} ${issue.testerOfTheIssue.firstName}</td>
+        <td>${issue.priority}</td>
         <td><a href="#" class="btn btn-success">Open</a></td>
       </tr>
     </c:forEach>

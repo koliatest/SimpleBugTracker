@@ -40,6 +40,10 @@
             <a class="navbar-brand" href="/">Bugtracker</a>
         </div>
         <div id="navbar" class="navbar-collapse collapse">
+            <ul class="nav navbar-nav">
+                <li class="active"><a href="#">${currentUser.firstName} ${currentUser.lastName}</a></li>
+            </ul>
+
             <ul class="nav navbar-nav navbar-right">
                 <sec:authorize access="hasRole('ROLE_ADMIN')">
                     <li><a href="#">Admin page</a></li>
@@ -86,7 +90,7 @@
             <div class="form-group">
                 <p><label>Priority</label></p>
                 <c:if test="${!empty listOfPriority}">
-                    <sf:select id="selectForUsers" path="priority" cssClass="selectpicker" items="${listOfPriority}">
+                    <sf:select path="priority" cssClass="selectpicker" items="${listOfPriority}">
                     </sf:select>
                 </c:if>
             </div>
@@ -106,7 +110,7 @@
             </div>
 
             <div class="form-group">
-                <p><label>Who will verify the issue os fixed?</label></p>
+                <p><label>Who will verify the issue is fixed?</label></p>
                 <c:if test="${!empty listOfUsers}">
                     <sf:select path="testerId" cssClass="selectpicker">
                         <c:forEach items="${listOfUsers}" var="user">

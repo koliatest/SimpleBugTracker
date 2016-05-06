@@ -1,5 +1,5 @@
 package com.sprsec.model.enums;
 
 public enum StatusOfTheIssue {
-    OPENED, REJECTED, DEFERRED, REOPENED, VERIFIED, CLOSED
+    OPENED, IN_PROGRESS, REJECTED, DEFERRED, TEST, REOPENED, VERIFIED, CLOSED
 }

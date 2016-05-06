@@ -14,8 +14,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
-import java.util.Map;
-
 @Controller
 public class CreateProjectController
 {
@@ -26,20 +24,22 @@ public class CreateProjectController
     ProjectService projectService;
 
     @RequestMapping(value = "/project/create", method = RequestMethod.GET)
-    public ModelAndView createProjectGet(Map<String, Object> map)
+    public ModelAndView createProjectGet()
     {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         User currentUser = userService.getUser(auth.getName());
 
-        map.put("currentUser", currentUser);
-        map.put("dto", new ProjectDto());
-        map.put("userList", userService.listOfUsers());
-        map.put("user", new User());
-        return new ModelAndView("project-create-page");
+        ModelAndView modelAndView = new ModelAndView("project-create-page");
+
+        modelAndView.addObject("currentUser", currentUser);
+        modelAndView.addObject("dto", new ProjectDto());
+        modelAndView.addObject("userList", userService.listOfUsers());
+        modelAndView.addObject("user", new User());
+        return modelAndView;
     }
 
     @RequestMapping(value = "/project/create", method = RequestMethod.POST)
-    public ModelAndView createProjectPost(@ModelAttribute(value = "dto") ProjectDto dto)
+    public String createProjectPost(@ModelAttribute(value = "dto") ProjectDto dto)
     {
         Project project = new Project();
         project.setNameOfTheProject(dto.getNameOfTheProject());
@@ -56,6 +56,6 @@ public class CreateProjectController
             }
         }
         projectService.createProject(project);
-        return new ModelAndView("redirect:/profile");
+        return "redirect:/profile";
     }
 }

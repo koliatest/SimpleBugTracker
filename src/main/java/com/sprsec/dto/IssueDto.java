@@ -13,6 +13,8 @@ public class IssueDto
 
     private String priority;
 
+    private String status;
+
     private int projectId;
 
     private int fixerId;
@@ -73,5 +75,13 @@ public class IssueDto
 
     public void setTitle(String title) {
         this.title = title;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 }

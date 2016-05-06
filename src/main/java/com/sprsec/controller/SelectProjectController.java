@@ -3,6 +3,7 @@ package com.sprsec.controller;
 import com.sprsec.model.Issue;
 import com.sprsec.model.Project;
 import com.sprsec.model.User;
+import com.sprsec.model.enums.StatusOfTheIssue;
 import com.sprsec.service.ProjectService;
 import com.sprsec.service.UserService;
 import com.sprsec.service.issueService.IssueService;
@@ -16,7 +17,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
-import java.util.Map;
 
 @Controller
 public class SelectProjectController
@@ -31,7 +31,7 @@ public class SelectProjectController
     IssueService issueService;
 
     @RequestMapping(value = "/profile/project/{id}", method = RequestMethod.GET)
-    public ModelAndView selectProjectGet(Map<String, Object> map, @PathVariable("id") Integer id)
+    public ModelAndView selectProjectGet(@PathVariable("id") Integer id)
     {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         User currentUser = userService.getUser(auth.getName());
@@ -39,13 +39,15 @@ public class SelectProjectController
         Project selectedProject = projectService.getProject(id);
 
         List<Issue> listOfIssues = issueService.listOfIssuesOfProject(selectedProject.getId());
-        listOfIssues.removeIf(issue -> issue.getFixerOfTheIssue().getId() != currentUser.getId()
-                && issue.getTesterOfTheIssue().getId() != currentUser.getId());
+        listOfIssues.removeIf(issue -> (issue.getFixerOfTheIssue().getId() != currentUser.getId()
+                && issue.getTesterOfTheIssue().getId() != currentUser.getId()) || issue.getStatus() == StatusOfTheIssue.CLOSED );
 
-        map.put("listOfIssues", listOfIssues);
-        map.put("listOfProjects", currentUser.getUserProjects());
-        map.put("selectedProjectName", new String(selectedProject.getNameOfTheProject()));
+        ModelAndView modelAndView = new ModelAndView("profile-page");
 
-        return new ModelAndView("profile-page");
+        modelAndView.addObject("listOfIssues", listOfIssues);
+        modelAndView.addObject("listOfProjects", currentUser.getUserProjects());
+        modelAndView.addObject("selectedProjectName", new String(selectedProject.getNameOfTheProject()));
+
+        return modelAndView;
     }
 }

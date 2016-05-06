@@ -20,7 +20,6 @@ import org.springframework.web.servlet.ModelAndView;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Map;
 
 @Controller
 public class CreateIssueController
@@ -51,22 +50,24 @@ public class CreateIssueController
     }*/
 
     @RequestMapping(value = "/issue/create", method = RequestMethod.GET)
-    public ModelAndView createIssueGet1(Map<String, Object> map)
+    public ModelAndView createIssueGet1()
     {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         User currentUser = userService.getUser(auth.getName());
 
-        map.put("currentUser", currentUser);
-        map.put("dto", new IssueDto());
-        map.put("userProjects", currentUser.getUserProjects());
-        map.put("listOfPriority", new ArrayList<>(Arrays.asList(PriorityOfTheIssue.values())));
-        map.put("listOfUsers", userService.listOfUsers());
+        ModelAndView modelAndView = new ModelAndView("issue-create-page");
 
-        return new ModelAndView("issue-create-page");
+        modelAndView.addObject("currentUser", currentUser);
+        modelAndView.addObject("dto", new IssueDto());
+        modelAndView.addObject("userProjects", currentUser.getUserProjects());
+        modelAndView.addObject("listOfPriority", new ArrayList<>(Arrays.asList(PriorityOfTheIssue.values())));
+        modelAndView.addObject("listOfUsers", userService.listOfUsers());
+
+        return modelAndView;
     }
 
     @RequestMapping(value = "/issue/create", method = RequestMethod.POST)
-    public ModelAndView createIssuePost(@ModelAttribute(value = "dto") IssueDto dto)
+    public String createIssuePost(@ModelAttribute(value = "dto") IssueDto dto)
     {
         User fixer, tester;
         Project project = projectService.getProject(dto.getProjectId());
@@ -94,6 +95,6 @@ public class CreateIssueController
 
         issueService.createIssue(issue);
 
-        return new ModelAndView("redirect:/profile");
+        return "redirect:/profile";
     }
 }

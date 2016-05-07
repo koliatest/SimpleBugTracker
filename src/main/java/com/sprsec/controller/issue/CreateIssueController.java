@@ -6,9 +6,9 @@ import com.sprsec.model.Issue;
 import com.sprsec.model.Project;
 import com.sprsec.model.User;
 import com.sprsec.model.enums.PriorityOfTheIssue;
+import com.sprsec.service.issueService.IssueService;
 import com.sprsec.service.projectService.ProjectService;
 import com.sprsec.service.userService.UserService;
-import com.sprsec.service.issueService.IssueService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -75,6 +75,9 @@ public class CreateIssueController
 
         EmailSender emailSender = new EmailSender();
 
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        User currentUser = userService.getUser(auth.getName());
+
         Issue issue = new Issue();
         issue.setTitleOfIssue(dto.getTitle());
         issue.setDescription(dto.getDescription());
@@ -82,6 +85,7 @@ public class CreateIssueController
         issue.setProjectOfTheIssue(project);
         issue.setFixerOfTheIssue(fixer);
         issue.setTesterOfTheIssue(tester);
+        issue.setCreatorOfIssue(currentUser);
 
         project.getIssuesSet().add(issue);
         fixer.getIssuesToFix().add(issue);

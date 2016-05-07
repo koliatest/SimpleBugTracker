@@ -1,0 +1,12 @@
+body{
+    overflow-x: hidden;
+}
+
+.rom {
+    margin-left: 0px;
+    margin-right: 0px;
+}
+
+.gridForm{
+    margin-top: 40px;
+}

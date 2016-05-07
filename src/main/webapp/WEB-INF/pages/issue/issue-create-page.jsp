@@ -108,6 +108,13 @@
         // bind handlers
         selectProject("#selectForProject", "#selectForUsers", "/issue/create/project/" + $("#selectForProject").val());
     });*/
+
+    /*function changeUserSelect() {
+        url = "/issue/create/project/" + $("#selectForProject").val();
+        $.get(url, function (data) {
+            $("#selectForUsers").replaceWith(data);
+        });
+    }*/
 </script>
 <link href="<c:url value="/resources/css/registration.css" />" rel="stylesheet"  property=""/>
 

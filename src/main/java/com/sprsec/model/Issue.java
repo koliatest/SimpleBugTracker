@@ -25,6 +25,10 @@ public class Issue {
     @Enumerated(EnumType.STRING)
     private PriorityOfTheIssue priority;
 
+    @OneToOne
+    @JoinColumn(name = "creatorOfIssue_id")
+    private User creatorOfIssue;
+
     @Column
     private Date dateOfTheCreation = setDefaultDateOfCreation();
 
@@ -47,6 +51,14 @@ public class Issue {
     private static StatusOfTheIssue setDefaultStatusOfTheIssue()
     {
         return StatusOfTheIssue.OPENED;
+    }
+
+    public User getCreatorOfIssue() {
+        return creatorOfIssue;
+    }
+
+    public void setCreatorOfIssue(User creatorOfIssue) {
+        this.creatorOfIssue = creatorOfIssue;
     }
 
     public Integer getId() {

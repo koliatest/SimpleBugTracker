@@ -1,12 +1,10 @@
-package com.sprsec.service;
+package com.sprsec.dao.projectDao;
 
 import com.sprsec.model.Project;
-import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-@Service
-public interface ProjectService {
+public interface ProjectDao {
     public List<Project> listOfProjects();
     public List<Project> listOfProjectsByUser(Integer id);
     public Project getProject(Integer id);

@@ -1,4 +1,4 @@
-package com.sprsec.controller;
+package com.sprsec.controller.issue;
 
 import com.sprsec.Helper.EmailSender;
 import com.sprsec.dto.IssueDto;
@@ -6,8 +6,8 @@ import com.sprsec.model.Issue;
 import com.sprsec.model.Project;
 import com.sprsec.model.User;
 import com.sprsec.model.enums.PriorityOfTheIssue;
-import com.sprsec.service.ProjectService;
-import com.sprsec.service.UserService;
+import com.sprsec.service.projectService.ProjectService;
+import com.sprsec.service.userService.UserService;
 import com.sprsec.service.issueService.IssueService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -34,19 +34,18 @@ public class CreateIssueController
     IssueService issueService;
 
     /*@RequestMapping(value = "/issue/create/project/{id}", method = RequestMethod.GET)
-    public ModelAndView createIssueGet(Map<String, Object> map, @PathVariable("id") Integer id)
+    public ModelAndView createIssueGet(@PathVariable("id") Integer id)
     {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         User currentUser = userService.getUser(auth.getName());
 
         Project selectedProject = projectService.getProject(id);
 
-        map.put("dto", new IssueDto());
-        map.put("userProjects", currentUser.getUserProjects());
-        map.put("listOfPriority", new ArrayList<>(Arrays.asList(PriorityOfTheIssue.values())));
-        map.put("listOfUsers", selectedProject.getUsersInTheCurrentProject());
+        ModelAndView modelAndView = new ModelAndView("select-page");
 
-        return new ModelAndView("issue-create-page");
+        modelAndView.addObject("listOfUsers", selectedProject.getUsersInTheCurrentProject());
+
+        return modelAndView;
     }*/
 
     @RequestMapping(value = "/issue/create", method = RequestMethod.GET)
@@ -55,7 +54,7 @@ public class CreateIssueController
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         User currentUser = userService.getUser(auth.getName());
 
-        ModelAndView modelAndView = new ModelAndView("issue-create-page");
+        ModelAndView modelAndView = new ModelAndView("issue/issue-create-page");
 
         modelAndView.addObject("currentUser", currentUser);
         modelAndView.addObject("dto", new IssueDto());

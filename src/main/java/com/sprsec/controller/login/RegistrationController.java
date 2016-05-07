@@ -1,7 +1,7 @@
-package com.sprsec.controller;
+package com.sprsec.controller.login;
 
 import com.sprsec.model.User;
-import com.sprsec.service.UserService;
+import com.sprsec.service.userService.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;

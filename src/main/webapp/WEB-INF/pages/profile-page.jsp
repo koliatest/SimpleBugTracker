@@ -85,10 +85,10 @@
     <c:forEach items = "${listOfIssues}" var = "issue">
       <tr>
         <td>${issue.titleOfIssue}</td>
-        <td>${issue.fixerOfTheIssue.firstName} ${issue.fixerOfTheIssue.firstName}</td>
-        <td>${issue.testerOfTheIssue.firstName} ${issue.testerOfTheIssue.firstName}</td>
+        <td>${issue.fixerOfTheIssue.firstName} ${issue.fixerOfTheIssue.lastName}</td>
+        <td>${issue.testerOfTheIssue.firstName} ${issue.testerOfTheIssue.lastName}</td>
         <td>${issue.priority}</td>
-        <td><a href="/issue/inform/${issue.id}"  class="btn btn-success">Open</a></td>
+        <td><a href="/issue/inform/${issue.id}"  class="btn btn-success custom">${issue.status}</a></td>
       </tr>
     </c:forEach>
     </tbody>

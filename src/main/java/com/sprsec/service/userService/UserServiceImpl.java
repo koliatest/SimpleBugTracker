@@ -1,6 +1,6 @@
-package com.sprsec.service;
+package com.sprsec.service.userService;
 
-import com.sprsec.dao.UserDAO;
+import com.sprsec.dao.userDao.UserDAO;
 import com.sprsec.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

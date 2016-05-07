@@ -1,4 +1,4 @@
-package com.sprsec.controller;
+package com.sprsec.controller.issue;
 
 /*@Controller
 public class UpdateIssueController

@@ -1,4 +1,4 @@
-package com.sprsec.dao;
+package com.sprsec.dao.projectDao;
 
 import com.sprsec.model.Project;
 import org.hibernate.Query;

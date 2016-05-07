@@ -1,12 +1,10 @@
-package com.sprsec.service;
+package com.sprsec.dao.userDao;
 
 import com.sprsec.model.User;
-import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-@Service
-public interface UserService {
+public interface UserDAO {
 
     public List<User> listOfUsers();
     public User getUser(Integer id);
@@ -14,4 +12,5 @@ public interface UserService {
     public void createUser(User user);
     public void updateUser(User user);
     public void removeUser(Integer id);
+
 }

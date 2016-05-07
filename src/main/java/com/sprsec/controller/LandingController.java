@@ -3,7 +3,7 @@ package com.sprsec.controller;
 import com.sprsec.model.Issue;
 import com.sprsec.model.User;
 import com.sprsec.model.enums.StatusOfTheIssue;
-import com.sprsec.service.UserService;
+import com.sprsec.service.userService.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;

@@ -1,6 +1,6 @@
-package com.sprsec.service;
+package com.sprsec.service.projectService;
 
-import com.sprsec.dao.ProjectDao;
+import com.sprsec.dao.projectDao.ProjectDao;
 import com.sprsec.model.Project;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

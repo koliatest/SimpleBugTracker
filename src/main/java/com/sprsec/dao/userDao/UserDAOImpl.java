@@ -1,4 +1,4 @@
-package com.sprsec.dao;
+package com.sprsec.dao.userDao;
 
 import com.sprsec.model.User;
 import org.hibernate.Query;

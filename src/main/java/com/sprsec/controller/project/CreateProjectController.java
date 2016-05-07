@@ -1,10 +1,10 @@
-package com.sprsec.controller;
+package com.sprsec.controller.project;
 
 import com.sprsec.dto.ProjectDto;
 import com.sprsec.model.Project;
 import com.sprsec.model.User;
-import com.sprsec.service.ProjectService;
-import com.sprsec.service.UserService;
+import com.sprsec.service.projectService.ProjectService;
+import com.sprsec.service.userService.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;

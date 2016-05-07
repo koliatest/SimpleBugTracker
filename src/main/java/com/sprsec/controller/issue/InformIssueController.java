@@ -1,12 +1,12 @@
-package com.sprsec.controller;
+package com.sprsec.controller.issue;
 
 import com.sprsec.Helper.EmailSender;
 import com.sprsec.dto.IssueDto;
 import com.sprsec.model.Issue;
 import com.sprsec.model.User;
 import com.sprsec.model.enums.StatusOfTheIssue;
-import com.sprsec.service.ProjectService;
-import com.sprsec.service.UserService;
+import com.sprsec.service.projectService.ProjectService;
+import com.sprsec.service.userService.UserService;
 import com.sprsec.service.issueService.IssueService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -39,7 +39,7 @@ public class InformIssueController
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         User currentUser = userService.getUser(auth.getName());
 
-        ModelAndView modelAndView = new ModelAndView("issue-inform-page");
+        ModelAndView modelAndView = new ModelAndView("issue/issue-inform-page");
 
         modelAndView.addObject("currentUser", currentUser);
         modelAndView.addObject("currentIssue", issueService.getIssue(id));
@@ -59,12 +59,12 @@ public class InformIssueController
 
         User fixer = issue.getFixerOfTheIssue(), tester = issue.getTesterOfTheIssue();
 
-//        sendMessages(StatusOfTheIssue.valueOf(dto.getStatus()), fixer, tester, issue);
+//        sendNotifications(StatusOfTheIssue.valueOf(dto.getStatus()), fixer, tester, issue);
 
         return new ModelAndView("redirect:/issue/inform/" + id);
     }
 
-    private void sendMessages(StatusOfTheIssue statusOfTheIssue, User fixer, User tester, Issue issue)
+    private void sendNotifications(StatusOfTheIssue statusOfTheIssue, User fixer, User tester, Issue issue)
     {
         EmailSender emailSender = new EmailSender();
 

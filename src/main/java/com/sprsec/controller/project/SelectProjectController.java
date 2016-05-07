@@ -1,11 +1,11 @@
-package com.sprsec.controller;
+package com.sprsec.controller.project;
 
 import com.sprsec.model.Issue;
 import com.sprsec.model.Project;
 import com.sprsec.model.User;
 import com.sprsec.model.enums.StatusOfTheIssue;
-import com.sprsec.service.ProjectService;
-import com.sprsec.service.UserService;
+import com.sprsec.service.projectService.ProjectService;
+import com.sprsec.service.userService.UserService;
 import com.sprsec.service.issueService.IssueService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -44,6 +44,7 @@ public class SelectProjectController
 
         ModelAndView modelAndView = new ModelAndView("profile-page");
 
+        modelAndView.addObject("currentUser", currentUser);
         modelAndView.addObject("listOfIssues", listOfIssues);
         modelAndView.addObject("listOfProjects", currentUser.getUserProjects());
         modelAndView.addObject("selectedProjectName", new String(selectedProject.getNameOfTheProject()));

@@ -2,12 +2,14 @@ package com.sprsec.controller.issue;
 
 import com.sprsec.Helper.EmailSender;
 import com.sprsec.dto.IssueDto;
+import com.sprsec.model.ChangeOfState;
 import com.sprsec.model.Issue;
 import com.sprsec.model.User;
 import com.sprsec.model.enums.StatusOfTheIssue;
+import com.sprsec.service.changeOfStateService.ChangeOfStateService;
+import com.sprsec.service.issueService.IssueService;
 import com.sprsec.service.projectService.ProjectService;
 import com.sprsec.service.userService.UserService;
-import com.sprsec.service.issueService.IssueService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -20,6 +22,8 @@ import org.springframework.web.servlet.ModelAndView;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Controller
 public class InformIssueController
@@ -33,16 +37,22 @@ public class InformIssueController
     @Autowired
     ProjectService projectService;
 
+    @Autowired
+    ChangeOfStateService changeOfStateService;
+
     @RequestMapping(value = "/issue/inform/{id}", method = RequestMethod.GET)
     public ModelAndView issueInformGet(@PathVariable("id") Integer id)
     {
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        User currentUser = userService.getUser(auth.getName());
-
         ModelAndView modelAndView = new ModelAndView("issue/issue-inform-page");
 
-        modelAndView.addObject("currentUser", currentUser);
-        modelAndView.addObject("currentIssue", issueService.getIssue(id));
+        Issue currentIssue = issueService.getIssue(id);
+
+        List<ChangeOfState> listOfChanges = currentIssue.getChangeOfStatesSet();
+        listOfChanges = listOfChanges.stream().distinct().collect(Collectors.toList());
+
+        modelAndView.addObject("listOfChanges", listOfChanges);
+        modelAndView.addObject("currentUser", getCurrentUser());
+        modelAndView.addObject("currentIssue", currentIssue);
         modelAndView.addObject("listOfStatus", new ArrayList<>(Arrays.asList(StatusOfTheIssue.values())));
         modelAndView.addObject("dto", new IssueDto());
 
@@ -59,9 +69,24 @@ public class InformIssueController
 
         User fixer = issue.getFixerOfTheIssue(), tester = issue.getTesterOfTheIssue();
 
+        ChangeOfState changeOfState = new ChangeOfState();
+        changeOfState.setIssueOfState(issue);
+        changeOfState.setBasicText(getCurrentUser().getFirstName() + " " + getCurrentUser().getLastName().charAt(0)
+                + " changed the status to " + dto.getStatus());
+
+        issue.getChangeOfStatesSet().add(changeOfState);
+        changeOfStateService.createChangeOfState(changeOfState);
+
 //        sendNotifications(StatusOfTheIssue.valueOf(dto.getStatus()), fixer, tester, issue);
 
         return new ModelAndView("redirect:/issue/inform/" + id);
+    }
+
+    private User getCurrentUser()
+    {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        User currentUser = userService.getUser(auth.getName());
+        return currentUser;
     }
 
     private void sendNotifications(StatusOfTheIssue statusOfTheIssue, User fixer, User tester, Issue issue)

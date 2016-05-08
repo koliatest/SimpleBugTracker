@@ -4,7 +4,9 @@ import com.sprsec.model.enums.PriorityOfTheIssue;
 import com.sprsec.model.enums.StatusOfTheIssue;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Table(name = "issue")
@@ -47,6 +49,17 @@ public class Issue {
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "user_tester_fk")
     private User testerOfTheIssue;
+
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "issueOfState")
+    private List<ChangeOfState> changeOfStatesSet = new ArrayList<>(0);
+
+    public List<ChangeOfState> getChangeOfStatesSet() {
+        return changeOfStatesSet;
+    }
+
+    public void setChangeOfStatesSet(List<ChangeOfState> changeOfStatesSet) {
+        this.changeOfStatesSet = changeOfStatesSet;
+    }
 
     private static StatusOfTheIssue setDefaultStatusOfTheIssue()
     {

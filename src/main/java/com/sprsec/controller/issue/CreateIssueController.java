@@ -2,10 +2,12 @@ package com.sprsec.controller.issue;
 
 import com.sprsec.Helper.EmailSender;
 import com.sprsec.dto.IssueDto;
+import com.sprsec.model.ChangeOfState;
 import com.sprsec.model.Issue;
 import com.sprsec.model.Project;
 import com.sprsec.model.User;
 import com.sprsec.model.enums.PriorityOfTheIssue;
+import com.sprsec.service.changeOfStateService.ChangeOfStateService;
 import com.sprsec.service.issueService.IssueService;
 import com.sprsec.service.projectService.ProjectService;
 import com.sprsec.service.userService.UserService;
@@ -32,6 +34,9 @@ public class CreateIssueController
 
     @Autowired
     IssueService issueService;
+
+    @Autowired
+    ChangeOfStateService changeOfStateService;
 
     /*@RequestMapping(value = "/issue/create/project/{id}", method = RequestMethod.GET)
     public ModelAndView createIssueGet(@PathVariable("id") Integer id)
@@ -73,8 +78,6 @@ public class CreateIssueController
         fixer = userService.getUser(dto.getFixerId());
         tester = userService.getUser(dto.getTesterId());
 
-        EmailSender emailSender = new EmailSender();
-
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         User currentUser = userService.getUser(auth.getName());
 
@@ -87,17 +90,38 @@ public class CreateIssueController
         issue.setTesterOfTheIssue(tester);
         issue.setCreatorOfIssue(currentUser);
 
+        ChangeOfState changeOfState = new ChangeOfState();
+        changeOfState.setBasicText(issue.getCreatorOfIssue().getFirstName() + " " +
+                issue.getCreatorOfIssue().getLastName().charAt(0) + " created the issue.");
+        changeOfState.setDescription("Assigned to " + fixer.getFirstName() + " " +
+                fixer.getLastName().charAt(0) + " as the fixer, and to " +
+                tester.getFirstName() + " " + tester.getLastName().charAt(0) + " as the tester. "
+                + "This issue is marked as " + dto.getPriority());
+
         project.getIssuesSet().add(issue);
         fixer.getIssuesToFix().add(issue);
         tester.getIssuesToTest().add(issue);
 
-        /*emailSender.send("Issue Tracker", "You have been assigned to issue <" + issue.getTitleOfIssue() + "> as fixer",
-                fixer.getEmail());
-        emailSender.send("Issue Tracker", "You have been assigned to issue <" + issue.getTitleOfIssue() + "> as tester",
-                tester.getEmail());*/
-
         issueService.createIssue(issue);
 
+        changeOfState.setIssueOfState(issue);
+
+        issue.getChangeOfStatesSet().add(changeOfState);
+
+        changeOfStateService.createChangeOfState(changeOfState);
+
+//        sendNotifications(fixer, tester, issue);
+
         return "redirect:/profile";
+    }
+
+    private void sendNotifications(User fixer, User tester, Issue issue)
+    {
+        EmailSender emailSender = new EmailSender();
+
+        emailSender.send("Issue Tracker", "You have been assigned to issue <" + issue.getTitleOfIssue() + "> as fixer",
+                fixer.getEmail());
+        emailSender.send("Issue Tracker", "You have been assigned to issue <" + issue.getTitleOfIssue() + "> as tester",
+                tester.getEmail());
     }
 }

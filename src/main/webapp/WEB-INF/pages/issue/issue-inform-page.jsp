@@ -92,14 +92,19 @@
         <div class = "container">
           <div class="col-sm-6">
             <p><h1 align="center" style="color: #1a5322">Logs</h1></p>
-            <p><strong>Right textf sdf sdfsd fs dfsdf sdf sdfsd fsdf sd f sd fsdfsdf sdf lol</strong></p>
-          <p><h1>Right text....</h1></p>
-          <p><h1>Right text....</h1></p>
-          <p><h1>Right text....</h1></p>
-          <p><h1>Right text....</h1></p>
-          <p><h1>Right text....</h1></p>
-          <p><h1>Right text....</h1></p>
-            </div>
+
+            <c:forEach items="${listOfChanges}" var="change">
+              <c:set var="dateOfChange" value="${change.dateOfChange}" />
+              <p class="bg-warning">
+                <fmt:formatDate type="both" value="${dateOfChange}" /><br>
+                <b>${change.basicText}</b><br>
+                <c:if test="${! empty change.description}">
+                  ${change.description}
+                </c:if>
+              </p>
+            </c:forEach>
+
+          </div>
         </div>
       </div>
     </div>

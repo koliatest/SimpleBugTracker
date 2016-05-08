@@ -27,14 +27,23 @@
       </ul>
 
       <ul class="nav navbar-nav navbar-right">
+
+        <sec:authorize access="isAuthenticated()">
+          <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Manage Projects<span class="caret"></span></a>
+            <ul class="dropdown-menu" role="menu">
+              <li><a href="/project/create">Create project</a></li>
+              <li class="divider"></li>
+              <li><a href="#">List of all projects</a></li>
+            </ul>
+          </li>
+        </sec:authorize>
+
         <sec:authorize access="hasRole('ROLE_ADMIN')">
           <li><a href="#">Admin page</a></li>
         </sec:authorize>
         <sec:authorize access="isAuthenticated()">
           <li><a href="/issue/create">Create issue</a></li>
-        </sec:authorize>
-        <sec:authorize access="isAuthenticated()">
-          <li><a href="/project/create">Create project</a></li>
         </sec:authorize>
         <li><a href="/about">About</a></li>
         <sec:authorize access="isAuthenticated()">
@@ -50,7 +59,7 @@
     Issues: ${selectedProjectName}
     <span class="caret"></span>
   </button>
-  <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+  <ul class="dropdown-menu dropdown-menu1" aria-labelledby="dropdownMenu1">
     <li><a href="/profile">All projects</a></li>
     <li role="separator" class="divider"></li>
     <c:if test="${! empty listOfProjects}">

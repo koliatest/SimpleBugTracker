@@ -21,23 +21,6 @@
       <sf:form id="myForm" cssClass="form-horizontal" method = "post" modelAttribute = "dto">
 
       <div class="form-group">
-        <p><label>Project</label></p>
-        <c:if test="${!empty userProjects}">
-          <sf:select id="selectForProject" path="projectId" cssClass="selectpicker">
-            <c:forEach items="${userProjects}" var="project">
-              <option
-                      <c:if test="${project.id eq currentIssue.projectOfTheIssue.id}">selected="selected"</c:if>
-                      value="${project.id}">${project.nameOfTheProject}
-              </option>
-            </c:forEach>
-          </sf:select>
-        </c:if>
-        <c:if test="${empty userProjects}">
-          There are no projects
-        </c:if>
-      </div>
-
-      <div class="form-group">
         <nobr><label for="title">Title for issue</label></nobr>
         <input type="text" class="form-control" id="title" name="title" value="${currentIssue.titleOfIssue}">
       </div>

@@ -23,9 +23,13 @@
             <div class="form-group">
                 <p><label>Project</label></p>
                 <c:if test="${!empty userProjects}">
-                    <sf:select id="selectForProject" path="projectId" cssClass="selectpicker">
+                    <sf:select onmousedown="$(':first-child', this).remove(); this.onmousedown = null;"
+                            id="selectForProject" path="projectId" cssClass="selectpicker">
+                        <option value=""></option>
                         <c:forEach items="${userProjects}" var="project">
-                            <option value="${project.id}">${project.nameOfTheProject}</option>
+                            <option value="${project.id}" <c:if test="${project.id eq idProject}"> selected = "selected" </c:if>>
+                                ${project.nameOfTheProject}
+                            </option>
                         </c:forEach>
                     </sf:select>
                 </c:if>
@@ -92,6 +96,11 @@
     $('#myForm').one('submit', function() {
         $(this).find('button[type="submit"]').attr('disabled','disabled');
     });
+
+    document.getElementById('selectForProject').onchange = function()
+    {
+        window.location = "/issue/create/project/" + $("#selectForProject").val();
+    }
 
     // get all measurement and replace elemId with it
     /*function getData(elemId, url) {

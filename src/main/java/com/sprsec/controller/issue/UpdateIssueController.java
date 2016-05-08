@@ -3,7 +3,6 @@ package com.sprsec.controller.issue;
 import com.sprsec.Helper.EmailSender;
 import com.sprsec.dto.IssueDto;
 import com.sprsec.model.Issue;
-import com.sprsec.model.Project;
 import com.sprsec.model.User;
 import com.sprsec.model.enums.PriorityOfTheIssue;
 import com.sprsec.service.issueService.IssueService;
@@ -61,19 +60,14 @@ public class UpdateIssueController
 
         User fixer = userService.getUser(dto.getFixerId()),
                 tester = userService.getUser(dto.getTesterId());
-        Project project = projectService.getProject(dto.getProjectId());
 
         EmailSender emailSender = new EmailSender();
 
         issue.setTitleOfIssue(dto.getTitle());
         issue.setDescription(dto.getDescription());
         issue.setPriority(PriorityOfTheIssue.valueOf(dto.getPriority()));
-        issue.setProjectOfTheIssue(project);
         issue.setFixerOfTheIssue(fixer);
         issue.setTesterOfTheIssue(tester);
-
-        project.getIssuesSet().removeIf(iss -> iss.getId() == issue.getId());
-        project.getIssuesSet().add(issue);
 
         fixer.getIssuesToFix().removeIf(iss -> iss.getId() == issue.getId());
         fixer.getIssuesToFix().add(issue);

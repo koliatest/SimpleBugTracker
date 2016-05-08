@@ -16,12 +16,14 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashSet;
 
 @Controller
 public class CreateIssueController
@@ -38,7 +40,7 @@ public class CreateIssueController
     @Autowired
     ChangeOfStateService changeOfStateService;
 
-    /*@RequestMapping(value = "/issue/create/project/{id}", method = RequestMethod.GET)
+    @RequestMapping(value = "/issue/create/project/{id}", method = RequestMethod.GET)
     public ModelAndView createIssueGet(@PathVariable("id") Integer id)
     {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
@@ -46,12 +48,17 @@ public class CreateIssueController
 
         Project selectedProject = projectService.getProject(id);
 
-        ModelAndView modelAndView = new ModelAndView("select-page");
+        ModelAndView modelAndView = new ModelAndView("issue/issue-create-page");
 
+        modelAndView.addObject("currentUser", currentUser);
+        modelAndView.addObject("dto", new IssueDto());
+        modelAndView.addObject("userProjects", currentUser.getUserProjects());
+        modelAndView.addObject("listOfPriority", new ArrayList<>(Arrays.asList(PriorityOfTheIssue.values())));
         modelAndView.addObject("listOfUsers", selectedProject.getUsersInTheCurrentProject());
+        modelAndView.addObject("idProject", selectedProject.getId());
 
         return modelAndView;
-    }*/
+    }
 
     @RequestMapping(value = "/issue/create", method = RequestMethod.GET)
     public ModelAndView createIssueGet1()
@@ -65,7 +72,7 @@ public class CreateIssueController
         modelAndView.addObject("dto", new IssueDto());
         modelAndView.addObject("userProjects", currentUser.getUserProjects());
         modelAndView.addObject("listOfPriority", new ArrayList<>(Arrays.asList(PriorityOfTheIssue.values())));
-        modelAndView.addObject("listOfUsers", userService.listOfUsers());
+        modelAndView.addObject("listOfUsers", new HashSet<>(0));
 
         return modelAndView;
     }

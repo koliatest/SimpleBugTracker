@@ -56,11 +56,7 @@
 </div>
 </div>
 
-<script type="text/javascript">
-  $('#myForm').one('submit', function() {
-    $(this).find('button[type="submit"]').attr('disabled','disabled');
-  });
-</script>
+<script src="<c:url value="/resources/js/disableSubmit.js" />" > </script>
 
 <link href="<c:url value="/resources/css/registration.css" />" rel="stylesheet"  property=""/>
 

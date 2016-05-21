@@ -1,6 +1,4 @@
-/**
- * Created by Oleg on 06.04.2015.
- */
+
 window.alert = function(){};
 var defaultCSS = document.getElementById('bootstrap-css');
 function changeCSS(css){

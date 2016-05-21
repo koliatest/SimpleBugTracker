@@ -89,27 +89,7 @@
   </div>
 </div>
 
-<script type="text/javascript">
-  $('#myForm').one('submit', function() {
-    $(this).find('button[type="submit"]').attr('disabled','disabled');
-  });
-
-  // get all measurement and replace elemId with it
-  /*function getData(elemId, url) {
-   $.get(url, function (data) {
-   $(elemId).replaceWith(data);
-   });
-   }
-   function selectProject(selectId, replaceId, url) {
-   $(selectId).change(function () {
-   getData(replaceId, url);
-   });
-   }
-   $(document).ready(function () {
-   // bind handlers
-   selectProject("#selectForProject", "#selectForUsers", "/issue/create/project/" + $("#selectForProject").val());
-   });*/
-</script>
+<script src="<c:url value="/resources/js/disableSubmit.js" />" > </script>
 <link href="<c:url value="/resources/css/registration.css" />" rel="stylesheet"  property=""/>
 
 </body>

@@ -113,10 +113,6 @@
 </div>
 
 <script type="text/javascript">
-  $('#myForm').one('submit', function() {
-    $(this).find('button[type="submit"]').attr('disabled','disabled');
-  });
-
   function checkDelete(id)
   {
     if(confirm("Are u sure?"))

@@ -48,6 +48,7 @@ public class SelectProjectController
         modelAndView.addObject("listOfIssues", listOfIssues);
         modelAndView.addObject("listOfProjects", currentUser.getUserProjects());
         modelAndView.addObject("selectedProjectName", new String(selectedProject.getNameOfTheProject()));
+        modelAndView.addObject("selectedProject", selectedProject);
 
         return modelAndView;
     }

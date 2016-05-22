@@ -29,7 +29,7 @@ public class CreateProjectController
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         User currentUser = userService.getUser(auth.getName());
 
-        ModelAndView modelAndView = new ModelAndView("project-create-page");
+        ModelAndView modelAndView = new ModelAndView("project/project-create-page");
 
         modelAndView.addObject("currentUser", currentUser);
         modelAndView.addObject("dto", new ProjectDto());

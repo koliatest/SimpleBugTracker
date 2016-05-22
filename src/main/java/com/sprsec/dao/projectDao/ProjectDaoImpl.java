@@ -38,6 +38,13 @@ public class ProjectDaoImpl implements ProjectDao{
 
     @Override
     @Transactional
+    public void deleteUserFormProject(Integer id)
+    {
+
+    }
+
+    @Override
+    @Transactional
     public Project getProject(Integer id) {
         return (Project) openSession().get(Project.class, id);
     }

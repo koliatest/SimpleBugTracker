@@ -13,6 +13,7 @@ public class User {
 
     @Id
     @GeneratedValue
+    @Column
     private Integer id;
 
     @Column

@@ -8,7 +8,7 @@
   <%@include file="parts/bootstrap-part.jsp"%>
 
 </head>
-<body>
+<body onload="checkSelectedProject('${selectedProjectName}')">
 <nav class="navbar navbar-default navbar-fixed-top">
   <div class="container">
     <div class="navbar-header">
@@ -27,20 +27,11 @@
       </ul>
 
       <ul class="nav navbar-nav navbar-right">
-
-        <sec:authorize access="isAuthenticated()">
-          <li class="dropdown">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Manage Projects<span class="caret"></span></a>
-            <ul class="dropdown-menu" role="menu">
-              <li><a href="/project/create">Create project</a></li>
-              <li class="divider"></li>
-              <li><a href="#">List of all projects</a></li>
-            </ul>
-          </li>
-        </sec:authorize>
-
         <sec:authorize access="hasRole('ROLE_ADMIN')">
           <li><a href="#">Admin page</a></li>
+        </sec:authorize>
+        <sec:authorize access="isAuthenticated()">
+          <li><a href="/project/create">Create project</a></li>
         </sec:authorize>
         <sec:authorize access="isAuthenticated()">
           <li><a href="/issue/create">Create issue</a></li>
@@ -68,6 +59,10 @@
       </c:forEach>
     </c:if>
   </ul>
+</div>
+
+<div id="manageProjectDiv" style="margin-left: 1200px">
+
 </div>
 
 <c:if test = "${!empty listOfIssues}">
@@ -103,6 +98,20 @@
 </c:if>
 
 <%@include file="parts/footer.jsp"%>
+
+<script type="text/javascript">
+  function checkSelectedProject(name){
+    if(name != "All Projects")
+    {
+      var myDiv = document.getElementById("manageProjectDiv");
+      var aTag = document.createElement('a');
+      aTag.setAttribute('href', "/project/inform/" + ${selectedProject.id});
+      aTag.setAttribute('class', "btn btn-warning");
+      aTag.innerHTML = "Manage project";
+      myDiv.appendChild(aTag);
+    }
+  }
+</script>
 
 <link href="<c:url value="/resources/css/registration.css" />" rel="stylesheet"  property=""/>
 <link href="<c:url value="/resources/css/error.css" />" rel="stylesheet"  property=""/>

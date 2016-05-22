@@ -26,6 +26,12 @@ public class ProjectServiceImpl implements ProjectService {
     }
 
     @Override
+    public void deleteUserFormProject(Integer id)
+    {
+        projectDao.deleteUserFormProject(id);
+    }
+
+    @Override
     public Project getProject(Integer id) {
         return projectDao.getProject(id);
     }

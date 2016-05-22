@@ -18,8 +18,6 @@ public class DeleteIssueController
     {
         issueService.removeIssue(id);
 
-//        issueService.getIssue(id).getChangeOfStatesSet().trimToSize();
-
         return "redirect:/profile";
     }
 }

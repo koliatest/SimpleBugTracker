@@ -35,7 +35,7 @@
             </div>
 
             <div class="form-group">
-              <nobr><label for="lastName">First last</label></nobr>
+              <nobr><label for="lastName">Last name</label></nobr>
               <input type="text" class="form-control" id="lastName" name="lastName" value="${currentUser.lastName}">
             </div>
 

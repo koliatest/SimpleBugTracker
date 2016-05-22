@@ -9,6 +9,7 @@ import java.util.List;
 public interface ProjectService {
     public List<Project> listOfProjects();
     public List<Project> listOfProjectsByUser(Integer id);
+    public void deleteUserFormProject(Integer id);
     public Project getProject(Integer id);
     public void createProject(Project project);
     public void updateProject(Project project);

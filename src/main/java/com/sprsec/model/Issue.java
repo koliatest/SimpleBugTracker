@@ -151,6 +151,4 @@ public class Issue {
     private synchronized static Date setDefaultDateOfCreation(){
         return new Date();
     }
-
-
 }

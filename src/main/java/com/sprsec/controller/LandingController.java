@@ -34,7 +34,9 @@ public class LandingController {
 
     @RequestMapping(value="/about", method=RequestMethod.GET)
     public ModelAndView aboutPage() {
-        return new ModelAndView("about-page");
+        ModelAndView modelAndView = new ModelAndView("about-page");
+
+        return modelAndView;
     }
 
     @RequestMapping(value="/profile", method=RequestMethod.GET)

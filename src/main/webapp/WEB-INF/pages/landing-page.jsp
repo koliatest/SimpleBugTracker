@@ -46,7 +46,9 @@
 <div class="jumbotron">
   <div class="container">
     <h1>Bugtracker</h1>
-    <p>This is a simple bugtracker bla bla bla...</p>
+    <p>This is the simple, effective  bugtracker.</p>
+    <p>For planning, coding and testing your projects.</p>
+    <p>Get start by Sign In or Registration.</p>
     <a class="btn btn-success btn-lg" href="/login" role="button">Sign in &raquo;</a>
     <a class="btn btn-primary btn-lg" href="/registration" role="button">Registration &raquo;</a>
   </div>

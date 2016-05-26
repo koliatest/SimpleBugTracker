@@ -23,7 +23,8 @@ public class Project
     @JoinColumn(name = "leadOfTheProject_id")
     private User leadOfTheProject;
 
-    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    //cascade = CascadeType.ALL
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name="project_user",
             joinColumns = @JoinColumn(name="proj_id"),
             inverseJoinColumns = @JoinColumn(name="usr_id")

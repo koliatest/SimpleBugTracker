@@ -1,5 +1,6 @@
 package com.sprsec.controller.project;
 
+import com.sprsec.model.Project;
 import com.sprsec.service.projectService.ProjectService;
 import com.sprsec.service.userService.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,7 +29,10 @@ public class DeleteProjectController
     @RequestMapping(value = "/project/{idProject}/delete/user/{idUser}", method = RequestMethod.GET)
     public String removeUserFromProject(@PathVariable("idProject") Integer idProject, @PathVariable("idUser") Integer idUser)
     {
-        projectService.deleteUserFormProject(idUser);
+        Project project = projectService.getProject(idProject);
+        project.getUsersInTheCurrentProject().remove(userService.getUser(idUser));
+
+        projectService.updateProject(project);
 
         return "redirect:/project/inform/" + idProject;
     }

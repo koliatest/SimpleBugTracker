@@ -3,7 +3,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title></title>
+  <title></title>
 
   <%@include file="parts/bootstrap-part.jsp"%>
 
@@ -67,30 +67,30 @@
 
 <c:if test = "${!empty listOfIssues}">
   <div class="container">
-  <div class="formAdd">
-  <table class="table table-striped">
-    <thead>
-    <tr>
-      <th>Title</th>
-      <th>Fixer</th>
-      <th>Tester</th>
-      <th>Priority</th>
-      <th>#</th>
-    </tr>
-    </thead>
-    <tbody>
-    <c:forEach items = "${listOfIssues}" var = "issue">
-      <tr>
-        <td>${issue.titleOfIssue}</td>
-        <td>${issue.fixerOfTheIssue.firstName} ${issue.fixerOfTheIssue.lastName}</td>
-        <td>${issue.testerOfTheIssue.firstName} ${issue.testerOfTheIssue.lastName}</td>
-        <td>${issue.priority}</td>
-        <td><a href="/issue/inform/${issue.id}"  class="btn btn-success custom">${issue.status}</a></td>
-      </tr>
-    </c:forEach>
-    </tbody>
-  </table>
-  </div>
+    <div class="formAdd">
+      <table id="dataTable" class="footable">
+        <thead>
+        <tr>
+          <th>Title</th>
+          <th>Fixer</th>
+          <th>Tester</th>
+          <th>Priority</th>
+          <th>#</th>
+        </tr>
+        </thead>
+        <tbody>
+        <c:forEach items = "${listOfIssues}" var = "issue">
+          <tr>
+            <td>${issue.titleOfIssue}</td>
+            <td>${issue.fixerOfTheIssue.firstName} ${issue.fixerOfTheIssue.lastName}</td>
+            <td>${issue.testerOfTheIssue.firstName} ${issue.testerOfTheIssue.lastName}</td>
+            <td>${issue.priority}</td>
+            <td><a href="/issue/inform/${issue.id}"  class="btn btn-success custom">${issue.status}</a></td>
+          </tr>
+        </c:forEach>
+        </tbody>
+      </table>
+    </div>
   </div>
 </c:if>
 <c:if test="${empty listOfIssues}">
@@ -116,6 +116,9 @@
 <link href="<c:url value="/resources/css/registration.css" />" rel="stylesheet"  property=""/>
 <link href="<c:url value="/resources/css/error.css" />" rel="stylesheet"  property=""/>
 
-
+<script src="<c:url value="/resources/js/footable.js" />" > </script>
+<script src="<c:url value="/resources/js/footable.paginate.js" />" > </script>
+<link href="<c:url value="/resources/css/footable.core.css" />" rel="stylesheet"  property=""/>
+<link href="<c:url value="/resources/css/footable.metro.css" />" rel="stylesheet"  property=""/>
 </body>
 </html>

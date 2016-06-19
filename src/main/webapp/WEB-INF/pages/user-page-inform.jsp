@@ -119,6 +119,7 @@
 
 </script>
 
+<script src="<c:url value="/resources/js/gstatic.js" />" > </script>
 <script src="<c:url value="/resources/js/googleChart.js" />" > </script>
 <link href="<c:url value="/resources/css/registration.css" />" rel="stylesheet"  property=""/>
 <link href="<c:url value="/resources/css/grid.css" />" rel="stylesheet"  property=""/>

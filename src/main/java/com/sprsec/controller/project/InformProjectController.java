@@ -40,7 +40,55 @@ public class InformProjectController
         modelAndView.addObject("listOfUsersInProject", currentProject.getUsersInTheCurrentProject());
         modelAndView.addObject("dto", new ProjectDto());
 
+        modelAndView.addObject("countOfOpened", currentProject.getIssuesSet()
+                .stream()
+                .filter(iss -> iss.getStatus() == StatusOfTheIssue.OPENED)
+                .count());
+        modelAndView.addObject("countOfInProgress", currentProject.getIssuesSet()
+                .stream()
+                .filter(iss -> iss.getStatus() == StatusOfTheIssue.IN_PROGRESS)
+                .count());
+        modelAndView.addObject("countOfRejected", currentProject.getIssuesSet()
+                .stream()
+                .filter(iss -> iss.getStatus() == StatusOfTheIssue.REJECTED)
+                .count());
+        modelAndView.addObject("countOfDeferred", currentProject.getIssuesSet()
+                .stream()
+                .filter(iss -> iss.getStatus() == StatusOfTheIssue.DEFERRED)
+                .count());
+        modelAndView.addObject("countOfTest", currentProject.getIssuesSet()
+                .stream()
+                .filter(iss -> iss.getStatus() == StatusOfTheIssue.TEST)
+                .count());
+        modelAndView.addObject("countOfReopened", currentProject.getIssuesSet()
+                .stream()
+                .filter(iss -> iss.getStatus() == StatusOfTheIssue.REOPENED)
+                .count());
+        modelAndView.addObject("countOfVerified", currentProject.getIssuesSet()
+                .stream()
+                .filter(iss -> iss.getStatus() == StatusOfTheIssue.VERIFIED)
+                .count());
+        modelAndView.addObject("countOfClosed", currentProject.getIssuesSet()
+                .stream()
+                .filter(iss -> iss.getStatus() == StatusOfTheIssue.CLOSED)
+                .count());
+
+        return modelAndView;
+    }
+
+    @RequestMapping(value = "/project/inform-for-user/{id}", method = RequestMethod.GET)
+    public ModelAndView informUserProjectGet(@PathVariable("id") Integer id)
+    {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        User currentUser = userService.getUser(auth.getName());
+
+        Project currentProject = projectService.getProject(id);
+
+        ModelAndView modelAndView = new ModelAndView("project/project-inform-user-page");
+
         modelAndView.addObject("currentUser", currentUser);
+        modelAndView.addObject("currentProject", currentProject);
+        modelAndView.addObject("listOfUsersInProject", currentProject.getUsersInTheCurrentProject());
 
         modelAndView.addObject("countOfOpened", currentProject.getIssuesSet()
                 .stream()
@@ -83,7 +131,10 @@ public class InformProjectController
     {
         Project project = projectService.getProject(id);
         project.setNameOfTheProject(dto.getNameOfTheProject());
-        project.setLeadOfTheProject(userService.getUser(dto.getLeadOfTheProject()));
+        //
+        User newLead = userService.getUser(dto.getLeadOfTheProject());
+        project.setLeadOfTheProject(newLead);
+        //
         project.setDescriptionOfTheProject(dto.getDescriptionOfTheProject());
         String dtoLogins = dto.getUsersInTheCurrentProject();
         if(dtoLogins.length() > 0)

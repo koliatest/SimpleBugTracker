@@ -1,5 +1,6 @@
 package com.sprsec.controller.project;
 
+import com.sprsec.Helper.EmailSender;
 import com.sprsec.dto.ProjectDto;
 import com.sprsec.model.Project;
 import com.sprsec.model.User;
@@ -41,10 +42,15 @@ public class CreateProjectController
     @RequestMapping(value = "/project/create", method = RequestMethod.POST)
     public String createProjectPost(@ModelAttribute(value = "dto") ProjectDto dto)
     {
+        EmailSender emailSender = new EmailSender();
+
         Project project = new Project();
         project.setNameOfTheProject(dto.getNameOfTheProject());
         project.setDescriptionOfTheProject(dto.getDescriptionOfTheProject());
-        project.setLeadOfTheProject(userService.getUser(dto.getLeadOfTheProject()));
+        //
+        User lead = userService.getUser(dto.getLeadOfTheProject());
+        project.setLeadOfTheProject(lead);
+        //
         String dtoLogins = dto.getUsersInTheCurrentProject();
         if(dtoLogins.length() > 0)
         {
@@ -52,7 +58,9 @@ public class CreateProjectController
             String[] logins = dtoLogins.split(";");
             for (String login : logins)
             {
-                project.getUsersInTheCurrentProject().add(userService.getUser(login.trim()));
+                User user = userService.getUser(login.trim());
+                project.getUsersInTheCurrentProject().add(user);
+                //emailSender.send("Issue Tracker", "You have been assigned to project " + project.getNameOfTheProject(), user.getEmail());
             }
         }
         projectService.createProject(project);

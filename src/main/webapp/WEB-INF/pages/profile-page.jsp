@@ -55,7 +55,12 @@
     <li role="separator" class="divider"></li>
     <c:if test="${! empty listOfProjects}">
       <c:forEach items = "${listOfProjects}" var = "project">
-        <li><a href="/profile/project/${project.id}">${project.nameOfTheProject}</a></li>
+        <c:if test = "${project.leadOfTheProject.id eq currentUser.id}">
+          <li><a href="/profile/project/${project.id}"> <font color="#ff8c00">${project.nameOfTheProject}</font></a></li>
+        </c:if>
+        <c:if test = "${project.leadOfTheProject.id ne currentUser.id}">
+          <li><a href="/profile/project/${project.id}">${project.nameOfTheProject}</a></li>
+        </c:if>
       </c:forEach>
     </c:if>
   </ul>
@@ -105,9 +110,17 @@
     {
       var myDiv = document.getElementById("manageProjectDiv");
       var aTag = document.createElement('a');
-      aTag.setAttribute('href', "/project/inform/" + ${selectedProject.id});
       aTag.setAttribute('class', "btn btn-warning");
-      aTag.innerHTML = "Manage project";
+      if(${selectedProject.leadOfTheProject.id} === ${currentUser.id})
+      {
+        aTag.setAttribute('href', "/project/inform/" + ${selectedProject.id});
+        aTag.innerHTML = "Manage project";
+      }
+      if(${selectedProject.leadOfTheProject.id} != ${currentUser.id})
+      {
+        aTag.setAttribute('href', "/project/inform-for-user/" + ${selectedProject.id});
+        aTag.innerHTML = "About project";
+      }
       myDiv.appendChild(aTag);
     }
   }

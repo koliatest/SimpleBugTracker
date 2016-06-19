@@ -101,6 +101,7 @@
 
 </script>
 
+<script src="<c:url value="/resources/js/gstatic.js" />" > </script>
 <script src="<c:url value="/resources/js/googleChart.js" />" > </script>
 <script src="<c:url value="/resources/js/disableSubmit.js" />" > </script>
 <link href="<c:url value="/resources/css/registration.css" />" rel="stylesheet"  property=""/>

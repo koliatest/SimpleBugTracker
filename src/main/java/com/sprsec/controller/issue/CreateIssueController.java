@@ -117,7 +117,7 @@ public class CreateIssueController
 
         changeOfStateService.createChangeOfState(changeOfState);
 
-//        sendNotifications(fixer, tester, issue);
+       // sendNotifications(fixer, tester, issue);
 
         return "redirect:/profile";
     }
@@ -126,9 +126,9 @@ public class CreateIssueController
     {
         EmailSender emailSender = new EmailSender();
 
-        emailSender.send("Issue Tracker", "You have been assigned to issue <" + issue.getTitleOfIssue() + "> as fixer",
+        emailSender.send("Issue Tracker", "You have been assigned to issue " + "/issue/inform/" + issue.getId() + " as fixer",
                 fixer.getEmail());
-        emailSender.send("Issue Tracker", "You have been assigned to issue <" + issue.getTitleOfIssue() + "> as tester",
+        emailSender.send("Issue Tracker", "You have been assigned to issue " + "/issue/inform/" + issue.getId() + " as tester",
                 tester.getEmail());
     }
 }

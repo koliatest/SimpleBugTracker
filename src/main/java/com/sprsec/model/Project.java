@@ -83,4 +83,28 @@ public class Project
     public void setUsersInTheCurrentProject(Set<User> usersInTheCurrentProject) {
         this.usersInTheCurrentProject = usersInTheCurrentProject;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || !(o instanceof Project))
+            return false;
+
+        Project other = (Project)o;
+
+        if (id == other.getId()) return true;
+        if (id == null) return false;
+
+        // equivalence by id
+        return id.equals(other.getId());
+    }
+
+    @Override
+    public int hashCode() {
+        if (id != null) {
+            return id.hashCode();
+        } else {
+            return super.hashCode();
+        }
+    }
 }
